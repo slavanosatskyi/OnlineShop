@@ -31,8 +31,6 @@ const CartButton = styled(Button)`
   width: 80px;
   height: 40px;
   margin-left: 10px;
-  letter-spacing: 0.1rem;
-  font-weight: bold;
 `;
 
 const TotalCostLabel = styled.div`
