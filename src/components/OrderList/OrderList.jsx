@@ -28,7 +28,7 @@ const OrderList = ({ items, addItemToCart, removeItemFromCart }) => {
           price={price}
           count={count}
           onAddItem={() => addItemToCart(item)}
-          onRemoveItem={() => removeItemFromCart(id)}
+          onRemoveItem={() => removeItemFromCart(item)}
         />
       </li>
     );

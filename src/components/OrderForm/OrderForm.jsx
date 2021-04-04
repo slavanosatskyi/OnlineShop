@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {connect} from "react-redux";
+import { Field, reduxForm } from 'redux-form'
 
 import Button from "../Button/Button";
 import Colors from "../../common/colors";
@@ -27,16 +29,23 @@ const OrderButton = styled(Button)`
     font-size: 1.5rem;
 `;
 
-const OrderForm = () => {
+const OrderForm = ({isOrderListEmpty}) => {
   return (
     <Form>
-      <Input placeholder="NAME"></Input>
-      <Input placeholder="SURNAME"></Input>
-      <Input placeholder="ADDRESS"></Input>
-      <Input placeholder="PHONE"></Input>
-      <OrderButton>Order</OrderButton>
+      <Input required placeholder="NAME"></Input>
+      <Input required placeholder="SURNAME"></Input>
+      <Input required placeholder="ADDRESS"></Input>
+      <Input required placeholder="PHONE" type="tel"></Input>
+      {!isOrderListEmpty && <OrderButton>Order</OrderButton>}
     </Form>
   );
 };
 
-export default OrderForm;
+const mapStateToProps = (state) => {
+  const {cart} = state;
+  return {
+    isOrderListEmpty: Object.keys(cart).length === 0
+  }
+};
+
+export default reduxForm({form: "order"})(connect(mapStateToProps)(OrderForm));

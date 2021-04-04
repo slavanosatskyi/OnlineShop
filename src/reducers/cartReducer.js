@@ -4,25 +4,17 @@ import {
   POST_ORDER,
 } from "../actions/actions";
 
-const cartReducer = (state, action) => {
+const cartReducer = (state = {}, action) => {
   switch (action.type) {
     case ADD_ITEM_TO_CART: {
       const newItem = action.payload;
-      const newCart = addItem(state.cart, newItem);
-      return {
-        ...state,
-        cart: newCart,
-        total: state.total + newItem.price,
-      };
+      const newCart = addItem(state, newItem);
+      return newCart;
     }
     case REMOVE_ITEM_FROM_CART: {
-      const itemId = action.payload;
-      const newCart = removeItem(state.cart, itemId);
-      return {
-        ...state,
-        cart: newCart,
-        total: state.total - state.cart[itemId].price,
-      };
+      const removedItem = action.payload;
+      const newCart = removeItem(state, removedItem);
+      return newCart;
     }
     default:
       return state;
@@ -53,12 +45,12 @@ const addItem = (cart, newItem) => {
   return newCart;
 };
 
-const removeItem = (cart, itemId) => {
+const removeItem = (cart, {id}) => {
   const newCart = copyCart(cart);
-  newCart[itemId].count--;
+  newCart[id].count--;
 
-  if (newCart[itemId].count === 0) {
-    delete newCart[itemId];
+  if (newCart[id].count === 0) {
+    delete newCart[id];
   }
 
   return newCart;

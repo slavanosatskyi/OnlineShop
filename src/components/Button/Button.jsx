@@ -13,6 +13,8 @@ const Button = styled.button`
     font-weight: bold;
     outline: none;
     transition: background-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+
     &:hover {
         background-color: ${Colors.lightPrimary};
     }

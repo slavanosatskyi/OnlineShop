@@ -42,11 +42,20 @@ const OrderContainer = styled.div`
   }
 `;
 
-const Cart = ({totalCost}) => {
+const EmtpyCardInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 10px;
+  font-size: 1.5rem;
+`;
+
+const Cart = ({totalCost, isOrderListEmty}) => {
   return (
     <Container>
       <OrderContainer>
-        <OrderList />
+        {!isOrderListEmty && <OrderList />}
+        {isOrderListEmty && <EmtpyCardInfo>Your Cart is Empty</EmtpyCardInfo>}
         <OrderForm />
       </OrderContainer>
       <TotalCostLabel>Total: {totalCost}₴</TotalCostLabel>
@@ -55,9 +64,10 @@ const Cart = ({totalCost}) => {
 };
 
 const mapStateToProps = (state) => {
-  const {total} = state;
-
+  const {cart, total} = state;
+  
   return {
+    isOrderListEmty: Object.keys(cart).length === 0,
     totalCost: total
   };
 }

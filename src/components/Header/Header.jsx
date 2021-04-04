@@ -22,6 +22,7 @@ const HeaderBar = styled.header`
   left: 50%;
   top: 0;
   transform: translate(-50%, 0);
+  z-index: 1;
 `;
 
 const Contnainer = styled.div`
