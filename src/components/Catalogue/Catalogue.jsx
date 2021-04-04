@@ -1,46 +1,9 @@
+import {useEffect, useState} from "react";
 import styled from "styled-components";
 
+import {getShoppingItems} from "../../service/service";
 import Screens from "../../common/screenSizes";
 import CatalogueItem from "../CatalogueItem/CatalogueItem";
-
-const items = [
-  {
-    id: 4385628774,
-    imgUrl: "https://picsum.photos/id/225/200/130",
-    price: 65,
-    title: "Tea",
-  },
-  {
-    id: 7295240990,
-    imgUrl: "https://picsum.photos/id/1080/200/130",
-    price: 643,
-    title: "Strawberry",
-  },
-  {
-    id: 4433767114,
-    imgUrl: "https://picsum.photos/id/124/200/130",
-    price: 850,
-    title: "Boat",
-  },
-  {
-    id: 5787337918,
-    imgUrl: "https://picsum.photos/id/157/200/130",
-    price: 635,
-    title: "Skateboard",
-  },
-  {
-    id: 4820126162,
-    imgUrl: "https://picsum.photos/id/2/200/130",
-    price: 420,
-    title: "Laptop",
-  },
-  {
-    id: 9173311267,
-    imgUrl: "https://picsum.photos/id/21/200/130",
-    price: 211,
-    title: "Shoes",
-  },
-];
 
 const Container = styled.ul`
   list-style: none;
@@ -70,6 +33,17 @@ const Container = styled.ul`
 `;
 
 const Catalogue = () => {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const shoppingItems = await getShoppingItems();
+      setItems(shoppingItems);
+    }
+
+    fetchData();
+  }, []);
+
   const catalogueItems = items.map(({ id, imgUrl, title, price }) => {
     return (
       <li key={id}>
@@ -77,7 +51,7 @@ const Catalogue = () => {
       </li>
     );
   });
-  
+
   return <Container>{catalogueItems}</Container>;
 };
 

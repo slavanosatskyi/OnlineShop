@@ -1,10 +1,12 @@
 import { useHistory, useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Colors from "../../common/colors";
 import Button from "../Button/Button";
+import TotalCostLabel from "../TotalCostLabel/TotalCostLabel";
 
-const HeaderBar = styled.div`
+const HeaderBar = styled.header`
   width: 100%;
   max-width: 1440px;
   height: 72px;
@@ -33,26 +35,39 @@ const CartButton = styled(Button)`
   margin-left: 10px;
 `;
 
-const TotalCostLabel = styled.div`
-  text-transform: uppercase;
-  text-shadow: 1px 1px 20px;
+const ToCatalogueLink = styled.div`
   margin-right: auto;
+
+  & > a {
+    color: ${Colors.text};
+    font-size: 1.2rem;
+    transition: color 0.2s;
+
+    &:hover {
+      color: ${Colors.secondaryText}
+    }
+  }
 `;
 
 const Header = () => {
   const history = useHistory();
   const location = useLocation();
-  const totalCost = 55000;
-
+  const totalCost = 5500;
+  const isCartOpened = location.pathname.includes("/cart");
   return (
     <HeaderBar>
-      {!location.pathname.includes("/cart") && (
+      {!isCartOpened && (
         <Contnainer>
           {totalCost > 0 && (
             <TotalCostLabel>Total: {totalCost}₴</TotalCostLabel>
           )}
           <CartButton onClick={() => history.push("/cart")}>Cart</CartButton>
         </Contnainer>
+      )}
+      {isCartOpened && (
+        <ToCatalogueLink>
+          <Link to="/">To Catalogue</Link>
+        </ToCatalogueLink>
       )}
     </HeaderBar>
   );

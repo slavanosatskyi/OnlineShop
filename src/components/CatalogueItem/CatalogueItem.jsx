@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import Button from "../Button/Button";
+import TextBlock from "../TextBlock/TextBlock";
 import Colors from "../../common/colors";
 
 const Container = styled.div`
@@ -21,15 +22,6 @@ const ImageContainer = styled.div`
   & img {
     width: 100%;
     height: 100%;
-  }
-`;
-
-const TextBlock = styled.div`
-  width: 100%;
-  padding: 0 10px;
-  font-size: 1.3rem;
-  & p {
-      margin-top: 10px;
   }
 `;
 
