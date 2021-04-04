@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 const Container = styled.div`
   display: flex;
   box-shadow: 0 2px 10px;
+  height: 100px;
 `;
 
 const ImageContainer = styled.div`
@@ -49,7 +50,14 @@ const CountText = styled.p`
   text-align: center;
 `;
 
-const OrderListItem = ({ imgUrl, title, price, count }) => {
+const OrderListItem = ({
+  imgUrl,
+  title,
+  price,
+  count,
+  onAddItem,
+  onRemoveItem,
+}) => {
   return (
     <Container>
       <ImageContainer>
@@ -60,9 +68,9 @@ const OrderListItem = ({ imgUrl, title, price, count }) => {
         <p>Price: {price}₴</p>
       </OrderTextBlock>
       <ButtonGroup>
-        <OrderButton>+</OrderButton>
+        <OrderButton onClick={onAddItem}>+</OrderButton>
         <CountText>{count}</CountText>
-        <OrderButton>-</OrderButton>
+        <OrderButton onClick={onRemoveItem}>-</OrderButton>
       </ButtonGroup>
     </Container>
   );

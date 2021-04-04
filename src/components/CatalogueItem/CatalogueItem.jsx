@@ -30,7 +30,7 @@ const BuyButton = styled(Button)`
   padding: 10px 0;
 `;
 
-const CatalogueItem = ({ imgUrl, title, price }) => {
+const CatalogueItem = ({ imgUrl, title, price, onClick }) => {
   return (
     <Container>
       <ImageContainer>
@@ -40,7 +40,7 @@ const CatalogueItem = ({ imgUrl, title, price }) => {
         <p><b>Title:</b> {title}</p>
         <p><b>Price:</b> {price}₴</p>
       </TextBlock>
-      <BuyButton>Buy</BuyButton>
+      <BuyButton onClick={onClick}>Buy</BuyButton>
     </Container>
   );
 };

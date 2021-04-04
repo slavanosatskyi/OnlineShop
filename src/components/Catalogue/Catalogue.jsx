@@ -1,9 +1,12 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import styled from "styled-components";
 
-import {getShoppingItems} from "../../service/service";
+import { getShoppingItems } from "../../service/service";
 import Screens from "../../common/screenSizes";
 import CatalogueItem from "../CatalogueItem/CatalogueItem";
+import { addItemToCart } from "../../actionCreators/actionCreators";
 
 const Container = styled.ul`
   list-style: none;
@@ -32,7 +35,7 @@ const Container = styled.ul`
   }
 `;
 
-const Catalogue = () => {
+const Catalogue = ({ addItemToCart }) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -44,10 +47,16 @@ const Catalogue = () => {
     fetchData();
   }, []);
 
-  const catalogueItems = items.map(({ id, imgUrl, title, price }) => {
+  const catalogueItems = items.map((item) => {
+    const { id, imgUrl, title, price } = item;
     return (
       <li key={id}>
-        <CatalogueItem imgUrl={imgUrl} title={title} price={price} />
+        <CatalogueItem
+          imgUrl={imgUrl}
+          title={title}
+          price={price}
+          onClick={() => addItemToCart(item)}
+        />
       </li>
     );
   });
@@ -55,4 +64,8 @@ const Catalogue = () => {
   return <Container>{catalogueItems}</Container>;
 };
 
-export default Catalogue;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ addItemToCart }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(Catalogue);

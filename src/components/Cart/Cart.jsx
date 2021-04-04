@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {connect} from "react-redux";
 
 import OrderForm from "../OrderForm/OrderForm";
 import OrderList from "../OrderList/OrderList";
@@ -41,8 +42,7 @@ const OrderContainer = styled.div`
   }
 `;
 
-const Cart = () => {
-  const totalCost = 55000;
+const Cart = ({totalCost}) => {
   return (
     <Container>
       <OrderContainer>
@@ -54,4 +54,12 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+const mapStateToProps = (state) => {
+  const {total} = state;
+
+  return {
+    totalCost: total
+  };
+}
+
+export default connect(mapStateToProps)(Cart);

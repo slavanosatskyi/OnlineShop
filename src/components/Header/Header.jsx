@@ -1,5 +1,7 @@
 import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux";
+
 import styled from "styled-components";
 
 import Colors from "../../common/colors";
@@ -49,11 +51,11 @@ const ToCatalogueLink = styled.div`
   }
 `;
 
-const Header = () => {
+const Header = ({totalCost}) => {
   const history = useHistory();
   const location = useLocation();
-  const totalCost = 5500;
   const isCartOpened = location.pathname.includes("/cart");
+
   return (
     <HeaderBar>
       {!isCartOpened && (
@@ -73,4 +75,12 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  const {total} = state;
+
+  return {
+    totalCost: total,
+  }
+}
+
+export default connect(mapStateToProps)(Header);
