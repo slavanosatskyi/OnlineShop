@@ -1,7 +1,7 @@
 import {
   ADD_ITEM_TO_CART,
   REMOVE_ITEM_FROM_CART,
-  POST_ORDER,
+  POST_ORDER_SUCCESS,
 } from "../actions/actions";
 
 const cartReducer = (state = {}, action) => {
@@ -16,6 +16,8 @@ const cartReducer = (state = {}, action) => {
       const newCart = removeItem(state, removedItem);
       return newCart;
     }
+    case POST_ORDER_SUCCESS:
+      return {};
     default:
       return state;
   }
