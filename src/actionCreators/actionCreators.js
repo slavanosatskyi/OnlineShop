@@ -37,8 +37,9 @@ export const postOrder = (clientInfo) => {
   return (dispatch, getStore) => {
       const rootRef = firebase.database().ref("/order");
       const {cart, total} = getStore();
+      const items = Object.keys(cart).map(itemId => ({itemId, count: cart[itemId].count}))
       const order = {
-          items: Object.keys(cart),
+          items,
           clientInfo,
           price: total,
       }
