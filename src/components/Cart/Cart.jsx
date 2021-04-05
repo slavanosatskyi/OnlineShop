@@ -51,12 +51,16 @@ const EmtpyCardInfo = styled.div`
 `;
 
 const Cart = ({totalCost, isOrderListEmty}) => {
+  const handleSubmit = (values) => {
+    console.log(values);
+  }
+
   return (
     <Container>
       <OrderContainer>
         {!isOrderListEmty && <OrderList />}
         {isOrderListEmty && <EmtpyCardInfo>Your Cart is Empty</EmtpyCardInfo>}
-        <OrderForm />
+        <OrderForm onSubmit={handleSubmit}/>
       </OrderContainer>
       <TotalCostLabel>Total: {totalCost}₴</TotalCostLabel>
     </Container>
