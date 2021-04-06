@@ -1,10 +1,10 @@
-import firebase from "../config/firebase"
+import { postOrder as postOrderAPI } from "../service/service";
 
 import {
   ADD_ITEM_TO_CART,
   REMOVE_ITEM_FROM_CART,
   POST_ORDER_SUCCESS,
-  CLOSE_ORDER
+  CLOSE_ORDER,
 } from "../actions/actions";
 
 export const addItemToCart = (item) => {
@@ -28,22 +28,15 @@ export const postOrderSuccess = () => {
 };
 
 export const closeOrder = () => {
-    return {
-        type: CLOSE_ORDER
-    }
-}
+  return {
+    type: CLOSE_ORDER,
+  };
+};
 
 export const postOrder = (clientInfo) => {
   return (dispatch, getStore) => {
-      const rootRef = firebase.database().ref("/order");
-      const {cart, total} = getStore();
-      const items = Object.keys(cart).map(itemId => ({itemId, count: cart[itemId].count}))
-      const order = {
-          items,
-          clientInfo,
-          price: total,
-      }
-      rootRef.set(order);
-      dispatch(postOrderSuccess());
+    const { cart, total } = getStore();
+    postOrderAPI(cart, total, clientInfo);
+    dispatch(postOrderSuccess());
   };
 };
